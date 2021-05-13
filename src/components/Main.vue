@@ -1,5 +1,6 @@
 <template>
   <main>
+    <!-- Loader -->
     <b-overlay :show="show" rounded="sm" :opacity="0.7" blur="2px">
       <template #overlay>
         <div class="text-center">
@@ -7,6 +8,8 @@
           <h2>Loading data...</h2>
         </div>
       </template>
+
+      <!-- Main container -->
       <b-container>
         <h1 class="text-center text-white pt-5">Sports Interactive Players</h1>
         <div>
@@ -18,6 +21,8 @@
             autofocus
           ></b-form-input>
         </div>
+
+        <!-- Cards -->
         <div class="cards" v-if="filteredPlayerList.length > 0">
           <b-card
             :title="player.PFName"
@@ -80,14 +85,20 @@
             </b-card-text>
           </b-card>
         </div>
+        <!-- Cards -->
+
+        <!-- No data -->
         <div v-else class="no-data-div">
           <b-img src="/images/no-data.svg" height="400"></b-img>
           <h2 class="text-white mt-3">
             No data found {{ search.length > 0 ? " for " + search : "" }}
           </h2>
         </div>
+        <!-- No data -->
       </b-container>
+      <!-- Main container -->
     </b-overlay>
+    <!-- Loader -->
   </main>
 </template>
 
@@ -124,8 +135,14 @@ export default {
   watch: {
     search() {
       this.filteredPlayerList = this.playerList;
+
+      // Searching through list if entere text is greater than 2 characters
+
       if (this.search.length > 2) {
+        // Regex to search through data (incase sensitive)
         let filter = new RegExp(this.search, "i");
+
+        // Searching through TName and PFName
         this.filteredPlayerList = this.playerList.filter((player) => {
           return player.TName.match(filter) || player.PFName.match(filter);
         });
@@ -133,6 +150,7 @@ export default {
     },
   },
   methods: {
+    // Parsing date in DD-MM-YYYY h:mm:ss a format
     getDate(date) {
       if (!date) return "";
       return moment(date).format("DD-MM-YYYY h:mm:ss a");
