@@ -19,6 +19,7 @@
             trim
             debounce="500"
             autofocus
+            autocomplete="false"
           ></b-form-input>
         </div>
 
@@ -60,26 +61,20 @@
                     player.UpComingMatchesList[0].VsCCode
                   "
                 >
-                  Upcoming match :
+                  Upcoming match:
                   <span
-                    ><code
-                      ><small>{{
-                        player.UpComingMatchesList[0].CCode
-                      }}</small></code
-                    >
+                    ><code>{{ player.UpComingMatchesList[0].CCode }}</code>
                     vs
-                    <code
-                      ><small>{{
-                        player.UpComingMatchesList[0].VsCCode
-                      }}</small></code
-                    ></span
+                    <code>{{
+                      player.UpComingMatchesList[0].VsCCode
+                    }}</code></span
                   >
                 </div>
-                <h6
-                  class="text-muted"
-                  v-if="player.UpComingMatchesList[0].MDate"
-                >
-                  Next Match: {{ getDate(player.UpComingMatchesList[0].MDate) }}
+                <h6 v-if="player.UpComingMatchesList[0].MDate">
+                  <small class="text-muted">Next Match: </small>
+                  <strong>{{
+                    getDate(player.UpComingMatchesList[0].MDate)
+                  }}</strong>
                 </h6>
               </div>
             </b-card-text>
@@ -136,8 +131,7 @@ export default {
     search() {
       this.filteredPlayerList = this.playerList;
 
-      // Searching through list if entere text is greater than 2 characters
-
+      // Searching through list if entered text is greater than 2 characters
       if (this.search.length > 2) {
         // Regex to search through data (incase sensitive)
         let filter = new RegExp(this.search, "i");
@@ -184,11 +178,12 @@ main {
   flex-basis: 33.33%;
   max-width: 20rem;
   cursor: pointer;
+  transition: all 0.5s ease-in-out;
 }
 
 .skill-badge {
   width: auto;
-  padding: 3px 5px;
+  padding: 2px 5px;
   border-radius: 5px;
   color: white;
   background-color: #28a745;
