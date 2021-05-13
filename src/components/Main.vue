@@ -133,7 +133,7 @@ export default {
 
       // Searching through list if entered text is greater than 2 characters
       if (this.search.length > 2) {
-        // Regex to search through data (incase sensitive)
+        // Regex to search through data (no case sensitive)
         let filter = new RegExp(this.search, "i");
 
         // Searching through TName and PFName
